@@ -99,3 +99,21 @@ app.post("/delete/:id", async (req, res) => {
 // Tells the app which port to run on
 app.get('/demo',function(req,res){res.render('pages/demo');})
 app.listen(8080);
+
+// add this snippet after "var express = require('express')"
+var axios = require('axios');
+...
+
+
+// add this snippet before 
+app.get('/weather', async (req, res) => {
+    try {
+      const response = await axios.get('https://api-open.data.gov.sg/v2/real-time/api/twenty-four-hr-forecast');
+      res.render('pages/weather', { weather: response.data });
+    } catch (error) {
+      console.error(error);
+      res.send('Error fetching weather data');
+    }
+  });
+  }
+});
